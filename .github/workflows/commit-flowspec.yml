@@ -3,11 +3,11 @@ run-name: ${{ github.actor }} is commiting pipeline changes
 on: 
   push:
     branches:
-      - '!main'
-      - '!master'
       - '*'
       - '*/*'
       - '**'
+      - '!main'
+      - '!master'
 
 jobs:
   commit:
