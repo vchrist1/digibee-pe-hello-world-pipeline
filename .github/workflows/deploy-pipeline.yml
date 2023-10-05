@@ -1,0 +1,33 @@
+name: deploy-pipeline
+run-name: ${{ github.actor }} merging and deploy the pipeline
+on: 
+  push:
+    branches:
+      - 'main'
+      - 'master'
+      
+jobs:
+  install-digibeectl:
+    runs-on: ubuntu-latest
+    # needs: another job
+    # runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -s https://storage.googleapis.com/digibee-release-test/releases/install.sh | bash
+      - run: echo ${{secrets.TOKEN}} >> token.json
+      - run: digibeectl set config --auth-key "${{secrets.PASS}}" --secret-key "${{secrets.KEY}}" --file "token.json"
+      - run: digibeectl
+      # recuperar id do pipeline
+      - run: echo "PIPELINE=$(jq -r .pipelineName metadata.json)" >> "$GITHUB_ENV"
+      - run: echo "MAJ_VERSION=$(jq -r .majorVersion metadata.json)"  >> "$GITHUB_ENV"
+      - run: echo "PIPELINE_ID=$(digibeectl get pipeline --name $PIPELINE | awk -v pipe="$PIPELINE" -v maj_ver="$MAJ_VERSION" '{if (($1 == pipe) && ($3 ~ maj_ver)) { print $2 }}')" >> "$GITHUB_ENV"
+      - run: digibeectl create deployment --pipeline-id $PIPELINE_ID -e test --redeploy --wait
+      
+  example-others-steps:
+    #runs-on: self-hosted
+    runs-on: ubuntu-latest
+    needs: install-digibeectl
+    steps:
+         - uses: actions/checkout@v4
+        # new commit
+        
