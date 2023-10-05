@@ -1,0 +1,14 @@
+{
+  "start": [
+    {
+      "name": "json-generator-connector",
+      "type": "connector",
+      "stepName": "MOCK de resposta",
+      "params": {
+        "json": "{\n    \"msg\": \"Cadastro realizado com sucesso\"\n}",
+        "failOnError": false
+      },
+      "id": "06ca900a-bed9-4d3e-b923-f82dbc9ea7ac"
+    }
+  ]
+}
