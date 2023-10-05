@@ -1,0 +1,45 @@
+name: updated-pipeline
+run-name: ${{ github.actor }} is commiting pipeline changes
+on: 
+  push:
+    branches:
+      - '!main'
+      - '!master'
+      - '*'
+      - '*/*'
+      - '**'
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      ## install digibeectl - Only required if you are using github runners. If you are using hosted runners it is not necessary to install digibeectl on each run.
+      - name: Install digibeectl
+        run: |
+            echo "Installing digibeectl"
+            curl -s https://storage.googleapis.com/digibee-release-test/releases/install.sh | bash
+            echo ${{secrets.TOKEN}} > token.json
+            digibeectl set config --auth-key "${{secrets.PASS}}" --secret-key "${{secrets.KEY}}" --file "token.json"
+            digibeectl
+
+      - name: Download flowspec
+        run: |
+            echo "Getting flowspec"
+            
+      - run: echo "PIPELINE=$(jq -r .pipelineName metadata.json)" >> "$GITHUB_ENV"
+      - run: echo "MAJ_VERSION=$(jq -r .majorVersion metadata.json)"  >> "$GITHUB_ENV"
+      - run: echo "PIPELINE_ID=$(digibeectl get pipeline --name $PIPELINE | awk -v pipe="$PIPELINE" -v maj_ver="$MAJ_VERSION" '{if (($1 == pipe) && ($3 ~ maj_ver)) { print $2 }}')" >> "$GITHUB_ENV"
+      - run: digibeectl get pipeline --pipeline-id $PIPELINE_ID --flowspec | jq . > flowspec.json
+      - run: echo "Modified by githubbot at $(date)" >> githubbot.md  
+      
+      - name: Commit with GITHUB_TOKEN
+        run: |
+            echo "Committing flowspec with GITHUB_TOKEN"
+            git config user.email github-actions[bot]@users.noreply.github.com
+            git config user.name "GitHub Actions Bot"
+            git add flowspec.json
+            git add githubbot.md
+            git commit -m "Automatic commit by githubactions [skip actions]" -t ${{github.token}}
+            git push
+
