@@ -20,6 +20,17 @@
         "failOnError": false
       },
       "id": "06ca900a-bed9-4d3e-b923-f82dbc9ea7ac"
+    },
+    {
+      "type": "connector",
+      "name": "log-connector",
+      "stepName": "Log",
+      "params": {
+        "logLevel": "INFO",
+        "message": "Log resposta {{ message.$ }}"
+      },
+      "id": "3142286b-3eb6-40ef-8cc3-5b5ffd24c935",
+      "__documentation__": ""
     }
   ]
 }
