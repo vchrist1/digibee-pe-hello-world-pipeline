@@ -1,6 +1,17 @@
 {
   "start": [
     {
+      "type": "connector",
+      "name": "log-connector",
+      "stepName": "Log",
+      "params": {
+        "logLevel": "INFO",
+        "message": "Request {{ message.$ }}"
+      },
+      "id": "ae34cda7-744e-4bee-adff-071809c21079",
+      "__documentation__": ""
+    },
+    {
       "name": "json-generator-connector",
       "type": "connector",
       "stepName": "MOCK de resposta",
