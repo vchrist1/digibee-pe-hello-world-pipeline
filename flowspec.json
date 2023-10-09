@@ -31,6 +31,29 @@
       },
       "id": "3142286b-3eb6-40ef-8cc3-5b5ffd24c935",
       "__documentation__": ""
+    },
+    {
+      "type": "connector",
+      "name": "rest-connector-v2",
+      "stepName": "REST V2 (HTTP / APIs)",
+      "params": {
+        "url": "https://viacep.com.br/ws/{{ DEFAULT(message.$.cep, \"04547-130\") }}/json/",
+        "operation": "GET",
+        "headers": "{\"Content-Type\":\"application/json\"}",
+        "injectJWT": false,
+        "readJWT": false,
+        "injectConsumer": false,
+        "injectPipelineKey": false,
+        "injectTraceId": false,
+        "stopOnClientError": false,
+        "stopOnServerError": false,
+        "maxRetry": 0,
+        "waitNextRetry": 1000,
+        "compressBody": false,
+        "overrideResponseCharset": true,
+        "responseCharset": "UTF-8"
+      },
+      "id": "5993c35a-677c-4678-a693-4b0f1737948f"
     }
   ]
 }
