@@ -31,6 +31,17 @@
       },
       "id": "3142286b-3eb6-40ef-8cc3-5b5ffd24c935",
       "__documentation__": ""
+    },
+    {
+      "type": "connector",
+      "name": "log-connector",
+      "stepName": "Log",
+      "params": {
+        "logLevel": "ERROR",
+        "message": "Responde service : {{ message.body }}"
+      },
+      "id": "2675050a-c8d6-43a9-8525-97b7f11c95a5",
+      "__documentation__": ""
     }
   ]
 }
