@@ -35,25 +35,53 @@
     {
       "type": "connector",
       "name": "rest-connector-v2",
-      "stepName": "REST V2 (HTTP / APIs)",
+      "stepName": "Call viacep",
       "params": {
         "url": "https://viacep.com.br/ws/{{ DEFAULT(message.$.cep, \"04547-130\") }}/json/",
-        "operation": "GET",
         "headers": "{\"Content-Type\":\"application/json\"}",
-        "injectJWT": false,
-        "readJWT": false,
-        "injectConsumer": false,
-        "injectPipelineKey": false,
-        "injectTraceId": false,
+        "queryParams": "",
+        "operation": "GET",
+        "sendBinaryFile": false,
+        "fileName": "",
+        "useDynamicAccount": false,
+        "scoped": false,
+        "accountName": "",
+        "connectTimeout": 30000,
+        "readTimeout": 30000,
         "stopOnClientError": false,
         "stopOnServerError": false,
-        "maxRetry": 0,
-        "waitNextRetry": 1000,
-        "compressBody": false,
         "overrideResponseCharset": true,
-        "responseCharset": "UTF-8"
+        "responseCharset": "UTF-8",
+        "advanced": false,
+        "rawMode": false,
+        "rawModeAsBase64": false,
+        "saveAsLocalFile": false,
+        "isInsecure": false,
+        "retry": false,
+        "maxRetry": 0,
+        "compressBody": false,
+        "forceHttp1": false,
+        "disableConnectionPool": false,
+        "invalidateSSLSessionsOnEveryCall": false
       },
-      "id": "5993c35a-677c-4678-a693-4b0f1737948f"
+      "id": "6cd96d39-b166-4e70-86a3-33135ca6ef7a",
+      "accountLabel": "",
+      "accountLabels": {
+        "custom-1": "",
+        "custom-2": ""
+      },
+      "__documentation__": ""
+    },
+    {
+      "type": "connector",
+      "name": "log-connector",
+      "stepName": "Log",
+      "params": {
+        "logLevel": "ERROR",
+        "message": "Responde viacep : {{ message.body }}"
+      },
+      "id": "2675050a-c8d6-43a9-8525-97b7f11c95a5",
+      "__documentation__": ""
     }
   ]
 }
