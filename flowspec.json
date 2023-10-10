@@ -38,7 +38,7 @@
       "stepName": "Log",
       "params": {
         "logLevel": "INFO",
-        "message": "Responde service : {{ message.body }}"
+        "message": "Responde demo xpto : {{ message.$}}"
       },
       "id": "2675050a-c8d6-43a9-8525-97b7f11c95a5",
       "__documentation__": ""
