@@ -37,7 +37,7 @@
       "name": "log-connector",
       "stepName": "Log",
       "params": {
-        "logLevel": "ERROR",
+        "logLevel": "INFO",
         "message": "Responde service : {{ message.body }}"
       },
       "id": "2675050a-c8d6-43a9-8525-97b7f11c95a5",
